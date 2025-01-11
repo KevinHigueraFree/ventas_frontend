@@ -2,11 +2,11 @@
 
 import { ErrorResponseSchema, ForgotPasswordSchema, SuccessSchema } from "@/schemas";
 
-type ActionStateType = {
+type TypeActionState = {
     errors: string[]
     success: string
 }
-export async function forgotPassword(prevState: ActionStateType, formData: FormData) {
+export async function forgotPassword(prevState: TypeActionState, formData: FormData) {
     console.log('olvidar');
 
     const forgotPassword = ForgotPasswordSchema.safeParse({

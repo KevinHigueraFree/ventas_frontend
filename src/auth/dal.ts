@@ -6,10 +6,11 @@ import { cache } from 'react'
 import { UserSchema } from "@/schemas";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import getToken from "./token";
 
 export const verifySession = cache(async () => {
 
-    const token = (await cookies()).get('ventas_token')?.value;
+  const token = await getToken();
     if (!token) {
         redirect('/auth/login')
     }

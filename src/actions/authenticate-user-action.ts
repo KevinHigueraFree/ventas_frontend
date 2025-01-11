@@ -7,7 +7,7 @@ type TypeActionState = {
     errors: string[]
 }
 
-export async function authenticate(prevState: any, formData: FormData) {
+export async function authenticate(prevState: TypeActionState, formData: FormData) {
 
 
 
@@ -16,11 +16,8 @@ export async function authenticate(prevState: any, formData: FormData) {
         password: formData.get('password'),
     }
 
-
     //!validar
     const auth = LoginSchema.safeParse(loginCredentials)
-
-
 
     if (!auth.success) {
         const errors = auth.error.errors.map(error => error.message)

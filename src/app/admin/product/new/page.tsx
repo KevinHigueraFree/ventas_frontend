@@ -1,22 +1,22 @@
 import { verifySession } from "@/auth/dal";
-import CreateSaleForm from "@/components/sale/CreateSaleForm";
+import CreateProductForm from "@/components/product/CreateProductForm";
 import Link from "next/link";
 
 
-export default function CreateSalePage() {
+export default function CreateProductPage() {
     return (
       <>
         <div className='flex flex-col-reverse md:flex-row md:justify-between items-center'>
           <div className='w-full md:w-auto'>
             <h1 className='font-black text-4xl text-purple-950 my-5'>
-              Nueva venta
+              Nuevo producto
             </h1>
-            <p className="text-xl font-bold">Llena el formulario y crea una nueva {''}
-              <span className="text-amber-500">venta</span>
+            <p className="text-xl font-bold">Llena el formulario y crea un nuevo {''}
+              <span className="text-amber-500">producto</span>
             </p>
           </div>
           <Link
-            href={'/admin'}
+            href={'/admin/product'}
             className='bg-amber-500 p-2 rounded-lg text-white font-bold w-full md:w-auto text-center'
           >
             Volver
@@ -24,7 +24,7 @@ export default function CreateSalePage() {
         </div>
   
         <div className='p-10 mt-10  shadow-lg border '>
-          <CreateSaleForm
+          <CreateProductForm
           
           />
         </div>
