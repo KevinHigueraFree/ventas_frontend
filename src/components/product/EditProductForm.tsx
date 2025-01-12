@@ -5,32 +5,29 @@ import { useRouter } from "next/navigation"
 import { useActionState, useEffect } from "react"
 import { toast } from "react-toastify"
 import ProductForm from "./ProductForm"
+import { Product } from "@/schemas"
+import { EditProductAction } from "@/actions/product/edit-product-action"
 import ErrorMessage from "../ui/ErrorMessage"
 
-export default function CreateProductForm() {
+export default function EditProductForm({ product }: { product: Product }) {
 
     const router = useRouter()
+    const editProductWithId = EditProductAction.bind(null, {product})
 
-    const [state, dispatch] = useActionState(CreateProductAction, {
+    const [state, dispatch] = useActionState(editProductWithId, {
         errors: [],
         success: ''
     })
 
     useEffect(() => {
-
         if (state.success) {
-            toast.success(state.success,
-                {
-                    onClose: () => {
-                        router.push('/admin/product')
-                    },
-                    onClick: () => {
-                        router.push('/admin/product')
-                    }
-                }
-            )
+            toast.success(state.success)
+            router.push('/admin/product')
         }
+
     }, [state])
+
+
 
     return (
         <form
@@ -38,14 +35,14 @@ export default function CreateProductForm() {
             noValidate
             action={dispatch}
         >
-            {state.errors.map(error => <ErrorMessage key={error}>{error}</ErrorMessage>)}
 
-            <ProductForm />
+            {state.errors.map(error => <ErrorMessage key={error}>{error}</ErrorMessage>)}
+            <ProductForm product={product} />
 
             <input
                 type="submit"
                 className="bg-amber-500 w-full p-3 text-white uppercase font-bold hover:bg-amber-600 cursor-pointer transition-colors"
-                value='Crear Producto'
+                value='Guardar Cambios'
             />
         </form>
     )

@@ -11,15 +11,10 @@ export const RegisterSchema = z.object({
         .min(8, { message: 'La contraseña debe tener almenos 8 caracteres' }),
 
     password_confirmation: z.string()
+}).refine((data) => data.password === data.password_confirmation, {
+    message: 'Las contraseñas no son iguales',
+    path: ['password_confirmation'] // aquí señalamos la ruta a la que se lo agregamos
 })
-
-
-
-
-    .refine((data) => data.password === data.password_confirmation, {
-        message: 'Las contraseñas no son iguales',
-        path: ['password_confirmation'] // aquí señalamos la ruta a la que se lo agregamos
-    })
 
 export const TokenSchema = z.string({ message: 'Token inválido' })
     .length(6, { message: 'Token inválido' })
@@ -49,14 +44,30 @@ export const ResetPasswordSchema = z.object({
     path: ["password_confirmation"]
 });
 
+export const UserSchema = z.object({
+    id: z.number(),
+    name: z.string(),
+    email: z.string().email(),
+
+})
+
+
+
+// se crea el type User a apartir de el contenido de UserSchema
+export type User = z.infer<typeof UserSchema>
+
+
 //! Productos
-export const CreateProductSchema = z.object({
+//validar formulario
+export const DraftProductSchema = z.object({
     name: z.string()
         .min(1, { message: 'El nombre es obligatorio' }),
     price: z.coerce // Aceptar el precio como cadena
         .number({ message: 'Precio inválido' })
         .min(1, { message: 'Precio inválido' }),
+    enable: z.boolean(),
 })
+
 export const ProductAPIResponseSchema = z.object({
     id: z.number(),
     name: z.string(),
@@ -65,8 +76,10 @@ export const ProductAPIResponseSchema = z.object({
     createdAt: z.string(),
     updatedAt: z.string(),
 })
+
 export const ProductsAPIResponseSchema = z.array(ProductAPIResponseSchema)// para usar una validacion como arreglo
 
+export type Product = z.infer<typeof ProductAPIResponseSchema>
 
 //! sales
 export const CreateSaleSchema = z.object({
@@ -123,14 +136,3 @@ export const ErrorResponseSchema = z.object({
     error: z.string()
 })
 
-export const UserSchema = z.object({
-    id: z.number(),
-    name: z.string(),
-    email: z.string().email(),
-
-})
-
-
-
-// se crea el type User a apartir de el contenido de UserSchema
-export type User = z.infer<typeof UserSchema>

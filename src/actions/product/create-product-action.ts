@@ -1,7 +1,7 @@
 "use server"
 
 import getToken from "@/auth/token";
-import { CreateProductSchema, ErrorResponseSchema, SuccessSchema } from "@/schemas";
+import { DraftProductSchema, ErrorResponseSchema, SuccessSchema } from "@/schemas";
 
 type TypeActionState = {
     errors: string[]
@@ -12,7 +12,7 @@ export async function CreateProductAction(prevState: TypeActionState, formData: 
 
     console.log(formData.get('price'))
 
-    const product = CreateProductSchema.safeParse({
+    const product = DraftProductSchema.safeParse({
         name: formData.get('name'),
         price: formData.get('price')
         

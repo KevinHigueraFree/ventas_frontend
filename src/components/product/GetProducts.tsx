@@ -6,6 +6,7 @@ import { formatCurrency, formatDate } from "@/utils";
 import Link from "next/link";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import ProductMenu from "./ProductMenu";
 // Definir el tipo de un producto
 type Product = {
     id: number;
@@ -59,7 +60,7 @@ export default function GetProducts() {
                                 <div className="flex min-w-0 gap-x-4">
                                     <div className="min-w-0 flex-auto space-y-2">
 
-                                        <p className="text-sm font-semibold leading-6 text-white">
+                                        <p className="text-2xl font-semibold leading-6 text-white">
                                             <Link href={`/admin/product/${product.id}`}>
                                                 {product.name}
                                             </Link>
@@ -74,9 +75,9 @@ export default function GetProducts() {
                                             onClick={() => { handleClick(product.id) }}
                                             className={product.enable ? "bg-green-600  rounded-sm px-2 py-1" : "bg-red-600 rounded-sm px-2 py-1"}
                                         >
-                                      
-                                                {product.enable ? "Disponible" : "No disponible"}
-                                            
+
+                                            {product.enable ? "Disponible" : "No disponible"}
+
                                         </button>
 
 
@@ -90,7 +91,9 @@ export default function GetProducts() {
                                     </div>
                                 </div>
                                 <div className="flex shrink-0 items-center gap-x-6">
-
+                                    <ProductMenu 
+                                    productId={product.id}
+                                    />
                                 </div>
                             </li>
                         ))}

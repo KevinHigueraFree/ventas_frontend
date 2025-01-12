@@ -11,6 +11,10 @@ export async function GetProductsAction() {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`,
+        },
+        next:
+        {
+            tags:['all-products']
         }
     })
 
