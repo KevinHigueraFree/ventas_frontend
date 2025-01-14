@@ -2,7 +2,6 @@
 
 import { register } from "@/actions/create-account-action"
 import { useActionState, useEffect, useRef } from "react"
-import { useFormState } from "react-dom"
 import ErrorMessage from "../ui/ErrorMessage"
 import SuccessMessage from "../ui/SuccessMessage"
 

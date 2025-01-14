@@ -68,6 +68,8 @@ export const DraftProductSchema = z.object({
     enable: z.boolean(),
 })
 
+export const PasswordValidationSchema = z.string().min(1,{message:'Contraseña inválida'})
+
 export const ProductAPIResponseSchema = z.object({
     id: z.number(),
     name: z.string(),

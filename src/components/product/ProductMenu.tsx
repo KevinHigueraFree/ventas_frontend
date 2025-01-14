@@ -4,8 +4,10 @@ import Link from "next/link"
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/react"
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid"
 import { Product } from "@/schemas"
+import { useRouter } from "next/navigation"
 
 export default function ProductMenu({productId}:{productId:Product['id']}) {
+  const router=useRouter()
   return (
     <>
       <Menu as="div" className="relative flex-none">
@@ -37,7 +39,7 @@ export default function ProductMenu({productId}:{productId:Product['id']}) {
               <button
                 type='button'
                 className='block px-3 py-1 text-sm leading-6 text-red-500'
-                onClick={ () => {} }
+                onClick={ () => router.push(`?deleteProductId=${productId}`) }
               >
                 Eliminar Producto
               </button>

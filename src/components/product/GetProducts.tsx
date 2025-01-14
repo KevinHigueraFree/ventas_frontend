@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import ProductMenu from "./ProductMenu";
+import DeleteProductModal from "./DeleteProductModal";
 // Definir el tipo de un producto
 type Product = {
     id: number;
@@ -54,50 +55,56 @@ export default function GetProducts() {
             <h1>Listado de productos</h1>
             {
                 products.length ? (
-                    <ul role="list" className="divide-y divide-gray-300 border shadow-lg mt-10 ">
-                        {products.map((product, index) => (
-                            <li key={product.id} className="flex justify-between gap-x-6 p-5 ">
-                                <div className="flex min-w-0 gap-x-4">
-                                    <div className="min-w-0 flex-auto space-y-2">
+                    <>
+                        <ul role="list" className="divide-y divide-gray-300 border shadow-lg mt-10 ">
+                            {products.map((product, index) => (
+                                <li key={product.id} className="flex justify-between gap-x-6 p-5 ">
+                                    <div className="flex min-w-0 gap-x-4">
+                                        <div className="min-w-0 flex-auto space-y-2">
 
-                                        <p className="text-2xl font-semibold leading-6 text-white">
-                                            <Link href={`/admin/product/${product.id}`}>
-                                                {product.name}
-                                            </Link>
+                                            <p className="text-2xl font-semibold leading-6 text-white">
+                                                <Link href={`/admin/product/${product.id}`}>
+                                                    {product.name}
+                                                </Link>
 
-                                        </p>
+                                            </p>
 
-                                        <p className="text-xl font-bold text-amber-500">
-                                            {formatCurrency(product.price)}
-                                        </p>
+                                            <p className="text-xl font-bold text-amber-500">
+                                                {formatCurrency(product.price)}
+                                            </p>
 
-                                        <button
-                                            onClick={() => { handleClick(product.id) }}
-                                            className={product.enable ? "bg-green-600  rounded-sm px-2 py-1" : "bg-red-600 rounded-sm px-2 py-1"}
-                                        >
+                                            <button
+                                                onClick={() => { handleClick(product.id) }}
+                                                className={product.enable ? "bg-green-600  rounded-sm px-2 py-1" : "bg-red-600 rounded-sm px-2 py-1"}
+                                            >
 
-                                            {product.enable ? "Disponible" : "No disponible"}
+                                                {product.enable ? "Disponible" : "No disponible"}
 
-                                        </button>
-
-
-
+                                            </button>
 
 
-                                        <p className='text-gray-500  text-sm'>
-                                            Ultima actualización:
-                                            <span className="font-bold"> {formatDate(product.updatedAt)}</span>
-                                        </p>
+
+
+
+                                            <p className='text-gray-500  text-sm'>
+                                                Ultima actualización:
+                                                <span className="font-bold"> {formatDate(product.updatedAt)}</span>
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="flex shrink-0 items-center gap-x-6">
-                                    <ProductMenu 
-                                    productId={product.id}
-                                    />
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
+                                    <div className="flex shrink-0 items-center gap-x-6">
+                                        <ProductMenu
+                                            productId={product.id}
+                                        />
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                        <DeleteProductModal
+
+                        />
+                    </>
+
                 ) : (
                     <p className="text-center py-20">No hay productos
 

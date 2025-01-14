@@ -27,6 +27,7 @@ export async function authenticate(prevState: TypeActionState, formData: FormDat
     }
 
     const url = `${process.env.API_URL}/auth/login`
+  
     const req = await fetch(url, {
         method: 'POST',
         headers: {
